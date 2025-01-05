@@ -60,11 +60,6 @@ public class DriveSubsystem extends SubsystemBase {
     m_right1.set(MathUtil.clamp(m_speed2, -1.0, 1.0));
   }
 
-  //Example Cond for binding config
-  public boolean exampleCondition() {
-    return false;
-  }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

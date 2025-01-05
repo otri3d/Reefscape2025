@@ -71,9 +71,11 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
+      /* ALL OF THIS IS SAMPLE CODE PROVIDED */
+
       // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-      new Trigger(m_driveSubsystem::exampleCondition)
-          .onTrue(new DefaultDriveCommand(m_driveSubsystem));
+      //new Trigger(m_driveSubsystem::exampleCondition)
+      //    .onTrue(new DefaultDriveCommand(m_driveSubsystem));
   
       // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
       // cancelling on release.
