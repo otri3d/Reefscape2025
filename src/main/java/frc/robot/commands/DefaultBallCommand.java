@@ -35,10 +35,6 @@ public class DefaultBallCommand extends Command {
   @Override
   public void execute() {
     if(m_controller.square().getAsBoolean()){
-      m_subsystem.invertIntake();
-    }
-    
-    if(m_controller.triangle().getAsBoolean()){
       m_subsystem.invertClaw();
     }
   }
