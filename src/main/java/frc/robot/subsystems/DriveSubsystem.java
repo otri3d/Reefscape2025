@@ -8,7 +8,10 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
+  // These are the motors we will be using 
   private WPI_VictorSPX m_left1, m_left2, m_right1, m_right2;
+
+  // These are the speeds for acclerating
   private double m_speed1 = 0.0, m_speed2 = 0.0;
 
   /** Creates a new DriveSubsystem. */
@@ -38,6 +41,7 @@ public class DriveSubsystem extends SubsystemBase {
   // Once the left trigger changes values we acclerate
   // This will go faster or slower depending on how much we push
   public void setAcceleratingLeftMotors(double leftStickInput) {
+    // This deadband will prevent moving from stick drift
     if (MathUtil.applyDeadband(leftStickInput, 0.01) == 0) {
       m_speed1 = 0;
     }
@@ -48,6 +52,7 @@ public class DriveSubsystem extends SubsystemBase {
   // Once the right trigger changes values we acclerate
   // This will go faster or slower depending on how much we push
   public void setAcceleratingRightMotors(double rightStickInput) {
+    // This deadband will prevent moving from stick drift
     if (MathUtil.applyDeadband(rightStickInput, 0.01) == 0) {
       m_speed2 = 0;
     }
