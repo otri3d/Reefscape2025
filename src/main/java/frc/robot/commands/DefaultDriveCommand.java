@@ -32,9 +32,14 @@ public class DefaultDriveCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Check the state for use of  modeSwitch
+    // Check the state for use of modeSwitch
     if (m_controller.cross().getAsBoolean()) {
       modeSwitch = !modeSwitch;
+
+      // Reset all motors
+      m_subsystem.setLeftSpeed(0);
+      m_subsystem.setRightSpeed(0);
+  
     }
 
     // Once we checked the state, we now move robot based on it

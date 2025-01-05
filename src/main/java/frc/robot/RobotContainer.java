@@ -7,6 +7,7 @@ package frc.robot;
 // Default
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+
 //  Drive Subsystem
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.subsystems.DriveSubsystem;
@@ -16,8 +17,8 @@ import frc.robot.commands.DefaultArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
 
 //  Ball Mechanism
-import frc.robot.subsystems.BallSubsystem;
 import frc.robot.commands.DefaultBallCommand;
+import frc.robot.subsystems.BallSubsystem;
 
 //  Control System
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
