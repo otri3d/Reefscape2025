@@ -9,9 +9,11 @@ import frc.robot.RobotContainer;
 public class DefaultArmCommand extends Command{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
-    // Variables
+    // Reference the arm subsystem and controller
     private final ArmSubsystem m_subsystem;
     private final CommandPS4Controller m_controller = RobotContainer.getOperatorController();
+
+    // This is to save the state of the arms current position
     private boolean isArmOpened = false;
 
     public DefaultArmCommand(ArmSubsystem subsystem) {
@@ -26,7 +28,7 @@ public class DefaultArmCommand extends Command{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute(){
-        // Open arm
+        // Open or close the arm based on the state
         if (m_controller.cross().getAsBoolean()){
             if (isArmOpened){
                 isArmOpened = false;
@@ -36,10 +38,12 @@ public class DefaultArmCommand extends Command{
             m_subsystem.openArm(isArmOpened);
         }
 
+        // If L1 is pressed move the arm at 40% speed
         if (m_controller.L1().getAsBoolean()){
             m_subsystem.moveArm(-0.4);
         }
 
+        // If R1 is pressed move the arm at 40% speed in the other direction
         if (m_controller.R1().getAsBoolean()){
             m_subsystem.moveArm(0.4);
         }

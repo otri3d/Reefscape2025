@@ -1,66 +1,55 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Solenoid;
-//import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.Constants.DriveConstants;
-
 
 /* Subsystem for the coral arm*/
-public class ArmSubsystem extends SubsystemBase{
+public class ArmSubsystem extends SubsystemBase {
 
-    // Variables
-    private WPI_VictorSPX m_armMotor1;
-    private WPI_VictorSPX m_armMotor2;
-    private Solenoid m_solenoid1;
-    private Solenoid m_solenoid2;
+  // The motors used in the arm subsystem
+  private WPI_VictorSPX m_armMotor1;
+  private WPI_VictorSPX m_armMotor2;
 
-    //private DoubleSolenoid m_solenoid;
+  // These are our 2 solenoids tht are in the pneumatics
+  private Solenoid m_solenoid1;
+  private Solenoid m_solenoid2;
 
-    //Public constructor
-    public ArmSubsystem(){
-        m_armMotor1 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT5);
-        m_armMotor2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT6);
+  // private DoubleSolenoid m_solenoid;
 
-        m_solenoid1 = new Solenoid(PneumaticsModuleType.CTREPCM, OperatorConstants.PNEUMATICPORT1);
-        m_solenoid2 = new Solenoid(PneumaticsModuleType.CTREPCM, OperatorConstants.PNEUMATICPORT2);
+  // Constructor of the subsystem
+  public ArmSubsystem() {
+    // Define the motors to the ports that are listed in the Constants.java file
+    m_armMotor1 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT5);
+    m_armMotor2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT6);
 
-        m_armMotor2.follow(m_armMotor1);
-    }
+    // Define the solenoids to the ports that are listed in the Constants.java file
+    m_solenoid1 = new Solenoid(PneumaticsModuleType.CTREPCM, OperatorConstants.PNEUMATICPORT1);
+    m_solenoid2 = new Solenoid(PneumaticsModuleType.CTREPCM, OperatorConstants.PNEUMATICPORT2);
 
-    // Change Solenoid values to open/close arm 
-    public void openArm(boolean value){
-        m_solenoid1.set(value);
-        m_solenoid2.set(!value);
-    }
+    // Make second motor follow the first
+    // This ensures that they are the same speed
+    m_armMotor2.follow(m_armMotor1);
+  }
 
-    // Move the arm up and down
-    public void moveArm(double speedConst){
-      //Stop if at min/max location
-        m_armMotor1.set(speedConst);
-    }
+  // Change Solenoid values to open/close arm
+  public void openArm(boolean value) {
+    m_solenoid1.set(value);
+    m_solenoid2.set(!value);
+  }
 
-    //Check if system is open
-    public boolean isOpen(){
-        return m_solenoid1.get();
-    }
-    
-  /**
-   * An example method querying a boolean state of the subsystem (for example, a digital sensor).
-   *
-   * @return value of some boolean subsystem state, such as a digital sensor.
-   */
-  public boolean exampleCondition() {
-    // Query some boolean state, such as a digital sensor.
-    return false;
+  // Move the arm up and down
+  public void moveArm(double speedConst) {
+    m_armMotor1.set(speedConst);
+  }
+
+  // Check if system is open
+  public boolean isOpen() {
+    return m_solenoid1.get();
   }
 
   @Override
