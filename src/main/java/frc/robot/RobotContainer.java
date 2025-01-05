@@ -7,6 +7,7 @@ package frc.robot;
 // Default
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+
 //  Drive Subsystem
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.subsystems.DriveSubsystem;
@@ -15,9 +16,12 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.commands.DefaultArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
 
+//  Ball Mechanism
+import frc.robot.commands.DefaultBallCommand;
+import frc.robot.subsystems.BallSubsystem;
+
 //  Control System
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -36,6 +40,7 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here
     public final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
     public final ArmSubsystem m_armSubsystem = new ArmSubsystem();
+    public final BallSubsystem m_BallSubsystem = new BallSubsystem();
 
     // Create the controllers
     private static CommandPS5Controller driver;
@@ -53,6 +58,7 @@ public class RobotContainer {
       // The base command that is always running is the moving command
       CommandScheduler.getInstance().setDefaultCommand(m_driveSubsystem, new DefaultDriveCommand(m_driveSubsystem));
       CommandScheduler.getInstance().setDefaultCommand(m_armSubsystem, new DefaultArmCommand(m_armSubsystem));
+      CommandScheduler.getInstance().setDefaultCommand(m_BallSubsystem, new DefaultBallCommand(m_BallSubsystem));
     }
   
     /**
