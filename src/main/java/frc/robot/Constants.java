@@ -28,7 +28,7 @@ public final class Constants {
     public static final int MOTORCONTROLPORT6 = 6;
     public static final int SOLENOID = 0;
     
-    //Ball Motors
+    // Ball Motors
     public static final int MOTORCONTROLPORT7 = 7;
     public static final int MOTORCONTROLPORT8 = 8;
     public static final int MOTORCONTROLPORT9 = 9;
