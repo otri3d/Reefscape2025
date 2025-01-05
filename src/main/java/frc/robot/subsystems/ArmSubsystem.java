@@ -34,6 +34,7 @@ public class ArmSubsystem extends SubsystemBase{
         m_solenoid2 = new Solenoid(PneumaticsModuleType.CTREPCM, OperatorConstants.PNEUMATICPORT2);
 
         m_armMotor2.follow(m_armMotor1);
+        m_solenoid2.set(true);
     }
 
     // Change Solenoid values to open/close arm 
@@ -45,7 +46,7 @@ public class ArmSubsystem extends SubsystemBase{
     // Move the arm up and down
     public void moveArm(double speedConst){
       //Stop if at min/max location
-        m_armMotor1.set(speedConst);
+        m_armMotor1.set(speedConst*0.67);
     }
 
     //Check if system is open

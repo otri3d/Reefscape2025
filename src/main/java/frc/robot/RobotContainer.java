@@ -40,7 +40,7 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here
     public final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
     public final ArmSubsystem m_armSubsystem = new ArmSubsystem();
-    public final BallSubsystem m_BallSubsystem = new BallSubsystem();
+    public final BallSubsystem m_ballSubsystem = new BallSubsystem();
 
     // Create the controllers
     private static CommandPS5Controller driver;
@@ -58,7 +58,7 @@ public class RobotContainer {
       // The base command that is always running is the moving command
       CommandScheduler.getInstance().setDefaultCommand(m_driveSubsystem, new DefaultDriveCommand(m_driveSubsystem));
       CommandScheduler.getInstance().setDefaultCommand(m_armSubsystem, new DefaultArmCommand(m_armSubsystem));
-      CommandScheduler.getInstance().setDefaultCommand(m_BallSubsystem, new DefaultBallCommand(m_BallSubsystem));
+      CommandScheduler.getInstance().setDefaultCommand(m_ballSubsystem, new DefaultBallCommand(m_ballSubsystem));
     }
   
     /**

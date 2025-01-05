@@ -13,6 +13,7 @@ public class DefaultArmCommand extends Command{
     private final ArmSubsystem m_subsystem;
     private final CommandPS4Controller m_controller = RobotContainer.getOperatorController();
     private boolean isArmOpened = false;
+    private double armState = 0;
 
     public DefaultArmCommand(ArmSubsystem subsystem) {
         m_subsystem = subsystem;
@@ -43,13 +44,11 @@ public class DefaultArmCommand extends Command{
             }
         }
 
-        if (m_controller.L1().getAsBoolean()){
-            m_subsystem.moveArm(-0.4);
-        }
+        //Move arm up + down based on Joystick
 
-        if (m_controller.R1().getAsBoolean()){
-            m_subsystem.moveArm(0.4);
-        }
+        // Get the value of the joystick
+        double speed = m_controller.getLeftY();
+        m_subsystem.moveArm(speed);
     }
     
     // Called once the command ends or is interrupted.

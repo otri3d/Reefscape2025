@@ -20,7 +20,7 @@ public class BallSubsystem extends SubsystemBase {
 
   public void invertClaw() {
     if(claw.get() == 0.0){
-      claw.set(1.0);
+      claw.set(-1.0);
     }
     claw.setInverted(!claw.getInverted());
   }

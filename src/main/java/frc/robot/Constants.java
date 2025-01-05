@@ -26,6 +26,7 @@ public final class Constants {
     //Arm
     public static final int MOTORCONTROLPORT5 = 5;
     public static final int MOTORCONTROLPORT6 = 6;
+    
     public static final int PNEUMATICPORT1 = 0;
     public static final int PNEUMATICPORT2 = 1;
     
