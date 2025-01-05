@@ -11,6 +11,10 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.subsystems.DriveSubsystem;
 
+//  Arm Subsystem
+import frc.robot.commands.DefaultArmCommand;
+import frc.robot.subsystems.ArmSubsystem;
+
 //  Control System
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -29,64 +33,59 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here
-  public final DriveSubsystem m_driveSubsystem;
+    // The robot's subsystems and commands are defined here
+    public final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+    public final ArmSubsystem m_armSubsystem = new ArmSubsystem();
 
-  // Create the controllers
-  private static CommandPS5Controller driver;
-  private static CommandPS4Controller operator;
+    // Create the controllers
+    private static CommandPS5Controller driver;
+    private static CommandPS4Controller operator;
+  
+    /** The container for the robot. Contains subsystems, OI devices, and commands. */
+    public RobotContainer() {
+      // Configure the trigger bindings
+      configureBindings();
+      
+      // Assign the controllers to port number as stated in the Constants.java file
+      driver = new CommandPS5Controller(OperatorConstants.DRIVERCONTROLLERPORT);
+      operator = new CommandPS4Controller(OperatorConstants.OPERATORCONTROLLERPORT);
+  
+      // The base command that is always running is the moving command
+      CommandScheduler.getInstance().setDefaultCommand(m_driveSubsystem, new DefaultDriveCommand(m_driveSubsystem));
+      CommandScheduler.getInstance().setDefaultCommand(m_armSubsystem, new DefaultArmCommand(m_armSubsystem));
+    }
+  
+    /**
+     * Use this method to define your trigger->command mappings. Triggers can be created via the
+     * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
+     * predicate, or via the named factories in {@link
+     * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
+     * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+     * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+     * joysticks}.
+     */
+    private void configureBindings() {
+      // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+      new Trigger(m_driveSubsystem::exampleCondition)
+          .onTrue(new DefaultDriveCommand(m_driveSubsystem));
+  
+      // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
+      // cancelling on release.
+      //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    }
+  
+    // This returns the driver controller objects, allowing our commands to use them
+    public static CommandPS5Controller getDriverController() {
+      return driver;
+    }
 
-  /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
-  public RobotContainer() {
-    // Configure the trigger bindings
-    configureBindings();
+    // This returns the operator controller objects, allowing our commands to use them
+    public static CommandPS4Controller getOperatorController() {
+      return operator;
+    }
 
-    // Create the subsystems
-    m_driveSubsystem = new DriveSubsystem();
-
-    // Assign the controllers to port number as stated in the Constants.java file
-    driver = new CommandPS5Controller(OperatorConstants.DRIVERCONTROLLERPORT);
-    operator = new CommandPS4Controller(OperatorConstants.OPERATORCONTROLLERPORT);
-
-    // The base command that is always running is the moving command
-    CommandScheduler.getInstance().setDefaultCommand(m_driveSubsystem, new DefaultDriveCommand(m_driveSubsystem));
-  }
-
-  /**
-   * Use this method to define your trigger->command mappings. Triggers can be
-   * created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
-   * an arbitrary
-   * predicate, or via the named factories in {@link
-   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
-   * {@link
-   * CommandXboxController
-   * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-   * PS4} controllers or
-   * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-   * joysticks}.
-   */
-  private void configureBindings() {
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is
-    // pressed,
-    // cancelling on release.
-    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-  }
-
-  // This returns the driver controller objects, allowing our commands to use them
-  public static CommandPS5Controller getDriverController() {
-    return driver;
-  }
-
-  // This returns the operator controller objects, allowing our commands to use them
-  public static CommandPS4Controller getOperatorController() {
-    return operator;
-  }
-
-  public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return Autos.exampleAuto(null);
-  }
+    public Command getAutonomousCommand() {
+      // An example command will be run in autonomous
+      return Autos.exampleAuto(null);
+    }
 }
