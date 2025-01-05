@@ -11,6 +11,10 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.subsystems.DriveSubsystem;
 
+//  Arm Subsystem
+import frc.robot.commands.DefaultArmCommand;
+import frc.robot.subsystems.ArmSubsystem;
+
 //  Control System
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -29,7 +33,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  public final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+    public final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+    public final ArmSubsystem m_armSubsystem = new ArmSubsystem();
 
     //Controller inputs
     private static CommandPS5Controller driver;
@@ -44,6 +49,7 @@ public class RobotContainer {
       operator = new CommandPS4Controller(OperatorConstants.OPERATORCONTROLLERPORT);
   
       CommandScheduler.getInstance().setDefaultCommand(m_driveSubsystem, new DefaultDriveCommand(m_driveSubsystem));
+      CommandScheduler.getInstance().setDefaultCommand(m_armSubsystem, new DefaultArmCommand(m_armSubsystem));
     }
   
     /**

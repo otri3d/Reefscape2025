@@ -30,18 +30,20 @@ public class ArmSubsystem extends SubsystemBase{
         m_armMotor2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT6);
 
         m_solenoid = new Solenoid(PneumaticsModuleType.CTREPCM, OperatorConstants.SOLENOID);
+
+        m_armMotor2.follow(m_armMotor1);
         //m_solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
     }
 
     // Change Solenoid values to open/close arm 
-    public void liftArm(){
-        m_solenoid.set(true);
+    public void openArm(boolean value){
+        m_solenoid.set(value);
     }
 
     // Move the arm up and down
-    public void moveArm(double speed){
-        m_armMotor1.set(speed);
-        m_armMotor2.set(speed);
+    public void moveArm(double speedConst){
+      //Stop if at min/max location
+        m_armMotor1.set(speedConst);
     }
 
     //Check if system is open
