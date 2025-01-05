@@ -34,12 +34,15 @@ public class DefaultBallCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Check if square is pressed
     if(m_controller.square().getAsBoolean()){
-      m_subsystem.invertIntake();
-    }
-    
-    if(m_controller.triangle().getAsBoolean()){
-      m_subsystem.invertClaw();
+      // Attempt to move the claw
+      try{
+        Thread.sleep(200);
+        m_subsystem.invertClaw();
+      } catch (InterruptedException e){
+        
+      }
     }
   }
 
