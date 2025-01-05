@@ -18,12 +18,16 @@ public final class Constants {
     public static final int OPERATORCONTROLLERPORT = 1;
 
     //Motor Controller Ports
-    //Drive Motors
     public static final int MOTORCONTROLPORT1 = 1;
     public static final int MOTORCONTROLPORT2 = 2;
     public static final int MOTORCONTROLPORT3 = 3;
     public static final int MOTORCONTROLPORT4 = 4;
 
+    //Arm
+    public static final int MOTORCONTROLPORT5 = 5;
+    public static final int MOTORCONTROLPORT6 = 6;
+    public static final int SOLENOID = 0;
+    
     //Ball Motors
     public static final int MOTORCONTROLPORT7 = 7;
     public static final int MOTORCONTROLPORT8 = 8;
@@ -33,6 +37,7 @@ public final class Constants {
     //Pneumatic Ports
     public static final int PNEUMATICPORT1 = 1;//REBIND ONCE ELECTRICAL FINISHED
     public static final int PNEUMATICPORT2 = 2;//REBIND ONCE ELECTRICAL FINISHED
+
   }
   public static class DriveConstants {
     public static final double ACCELERATION_CONSTANT = 0.04;

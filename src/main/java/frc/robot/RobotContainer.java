@@ -11,27 +11,33 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.subsystems.DriveSubsystem;
 
+//  Arm Subsystem
+import frc.robot.commands.DefaultArmCommand;
+import frc.robot.subsystems.ArmSubsystem;
+
 //  Control System
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  public final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+    // The robot's subsystems and commands are defined here
+    public final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+    public final ArmSubsystem m_armSubsystem = new ArmSubsystem();
 
-    //Controller inputs
+    // Create the controllers
     private static CommandPS5Controller driver;
     private static CommandPS4Controller operator;
   
@@ -40,10 +46,13 @@ public class RobotContainer {
       // Configure the trigger bindings
       configureBindings();
       
+      // Assign the controllers to port number as stated in the Constants.java file
       driver = new CommandPS5Controller(OperatorConstants.DRIVERCONTROLLERPORT);
       operator = new CommandPS4Controller(OperatorConstants.OPERATORCONTROLLERPORT);
   
+      // The base command that is always running is the moving command
       CommandScheduler.getInstance().setDefaultCommand(m_driveSubsystem, new DefaultDriveCommand(m_driveSubsystem));
+      CommandScheduler.getInstance().setDefaultCommand(m_armSubsystem, new DefaultArmCommand(m_armSubsystem));
     }
   
     /**
@@ -65,17 +74,18 @@ public class RobotContainer {
       //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
     }
   
-    //getting controllers
+    // This returns the driver controller objects, allowing our commands to use them
     public static CommandPS5Controller getDriverController() {
       return driver;
-  }
+    }
 
-  public static CommandPS4Controller getOperatorController() {
-    return operator;
-  }
+    // This returns the operator controller objects, allowing our commands to use them
+    public static CommandPS4Controller getOperatorController() {
+      return operator;
+    }
 
-  public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return Autos.exampleAuto(null);
-  }
+    public Command getAutonomousCommand() {
+      // An example command will be run in autonomous
+      return Autos.exampleAuto(null);
+    }
 }
