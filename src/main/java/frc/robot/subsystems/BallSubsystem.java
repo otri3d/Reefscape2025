@@ -4,16 +4,12 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.OperatorConstants;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 public class BallSubsystem extends SubsystemBase {
-  private DoubleSolenoid arm;
   private WPI_VictorSPX ball1, ball2, claw1, claw2;
   private double speedON = 1.0;
   private double clawConstant = 0.4;
@@ -25,8 +21,6 @@ public class BallSubsystem extends SubsystemBase {
     ball2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT8);
     claw1 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT9);
     claw2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT10);
-
-    arm = new DoubleSolenoid(PneumaticsModuleType.REVPH,OperatorConstants.PNEUMATICPORT1,OperatorConstants.PNEUMATICPORT2);//Change the PORT once created
   }
 
   public void intake() {
@@ -41,7 +35,7 @@ public class BallSubsystem extends SubsystemBase {
 
   public void invertClaw() {
     if(claw1.get() == 0.0 || claw2.get() == 0.0)
-      intake();
+      claw();
     claw1.setInverted(!claw1.getInverted());
     claw2.setInverted(!claw2.getInverted());
   }
@@ -53,20 +47,6 @@ public class BallSubsystem extends SubsystemBase {
     ball1.setInverted(!ball1.getInverted());
     ball2.setInverted(!ball2.getInverted());
   }
-
-  public void extendArm(){
-    arm.set(Value.kForward);
-  }
-
-  public void retractArm(){
-    arm.set(Value.kReverse);
-  }
-
-  public void toggleArm(){
-    arm.toggle();
-  }
-
-
 
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
