@@ -25,7 +25,6 @@ public class CloseArmCommand extends Command{
     @Override
     public void execute(){
         m_subsystem.closeArm();
-        m_subsystem.moveArm(0);
     }
     
     // Called once the command ends or is interrupted.

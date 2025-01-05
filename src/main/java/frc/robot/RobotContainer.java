@@ -15,6 +15,8 @@ import frc.robot.subsystems.DriveSubsystem;
 //  Arm Subsystem
 import frc.robot.commands.DefaultArmCommand;
 import frc.robot.commands.CloseArmCommand;
+import frc.robot.commands.OpenArmCommand;
+import frc.robot.commands.StopArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
 
 //  Ball Mechanism
@@ -53,30 +55,25 @@ public class RobotContainer {
     private Trigger crossTrigger;
     private Trigger squareTrigger;
     private Trigger circleTrigger;
+    private Trigger triangleTrigger;
   
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
-    public RobotContainer() {
-      // Configure the trigger bindings
-      configureBindings();
-      
+    public RobotContainer() {  
       // Assign the controllers to port number as stated in the Constants.java file
       driver = new CommandPS5Controller(OperatorConstants.DRIVERCONTROLLERPORT);
       operator = new CommandPS4Controller(OperatorConstants.OPERATORCONTROLLERPORT);
 
+      //Triggers
       crossTrigger = operator.cross();
-      crossTrigger.whileTrue(new DefaultArmCommand(m_armSubsystem));
-      crossTrigger.whileFalse(new CloseArmCommand(m_armSubsystem));
-
       squareTrigger = operator.square();
-      squareTrigger.whileTrue(new DefaultBallCommand(m_ballSubsystem));
-
       circleTrigger = operator.circle();
-      circleTrigger.whileTrue(new StopBallCommand(m_ballSubsystem));
+      triangleTrigger = operator.triangle();
+
+      // Configure the trigger bindings
+      configureBindings();
   
       // The base command that is always running is the moving command
       CommandScheduler.getInstance().setDefaultCommand(m_driveSubsystem, new DefaultDriveCommand(m_driveSubsystem));
-      CommandScheduler.getInstance().setDefaultCommand(m_armSubsystem, new DefaultArmCommand(m_armSubsystem));
-      CommandScheduler.getInstance().setDefaultCommand(m_ballSubsystem, new DefaultBallCommand(m_ballSubsystem));
     }
   
     /**
@@ -92,6 +89,16 @@ public class RobotContainer {
       // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
       new Trigger(m_driveSubsystem::exampleCondition)
           .onTrue(new DefaultDriveCommand(m_driveSubsystem));
+
+      crossTrigger.whileTrue(new OpenArmCommand(m_armSubsystem));
+      crossTrigger.whileFalse(new CloseArmCommand(m_armSubsystem));
+
+      squareTrigger.whileTrue(new DefaultArmCommand(m_armSubsystem));
+      squareTrigger.whileFalse(new StopArmCommand(m_armSubsystem));
+
+      triangleTrigger.whileTrue(new DefaultBallCommand(m_ballSubsystem));
+
+      circleTrigger.whileTrue(new StopBallCommand(m_ballSubsystem));
   
       // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
       // cancelling on release.

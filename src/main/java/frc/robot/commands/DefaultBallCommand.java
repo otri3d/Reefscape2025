@@ -6,9 +6,7 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.BallSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.RobotContainer;
 
 /** An example command that uses an example subsystem. */
 public class DefaultBallCommand extends Command {
@@ -16,7 +14,6 @@ public class DefaultBallCommand extends Command {
   private final BallSubsystem m_subsystem;
   private boolean inv = false;
   private double invTime = 0;
-  private final CommandPS4Controller m_controller = RobotContainer.getOperatorController();
 
   /**
    * Creates a new DefaultBallCommand.
@@ -37,7 +34,7 @@ public class DefaultBallCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      if (m_controller.square().getAsBoolean() && !inv) {
+      if (!inv) {
           inv = true;
           invTime = Timer.getFPGATimestamp();
           m_subsystem.invertClaw();
