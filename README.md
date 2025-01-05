@@ -9,6 +9,8 @@ This repository contains all of the code contained for all of the subsystems of 
 ### Notes
 Controller 1 (Driver): PlayStation 5 Controller
 
+![PS5 Mapping](/PS5Mapping.png "San Juan Mountains")
+
 Controller 2 (Operator): PlayStation 4 Controller
 
-Will replace with Controller imgs later
+![PS4 Mapping](/PS4Mapping.png "San Juan Mountains")
