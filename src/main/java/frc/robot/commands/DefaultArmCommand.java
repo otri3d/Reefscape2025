@@ -33,7 +33,14 @@ public class DefaultArmCommand extends Command{
             } else {
                 isArmOpened = true;
             }
-            m_subsystem.openArm(isArmOpened);
+
+            // Delay to prevent multiple presses, keeps same state after holding
+            try{
+                Thread.sleep(200);
+                m_subsystem.openArm(isArmOpened);
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
         }
 
         if (m_controller.L1().getAsBoolean()){

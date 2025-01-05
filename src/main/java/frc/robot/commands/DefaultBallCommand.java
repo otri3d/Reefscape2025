@@ -35,7 +35,12 @@ public class DefaultBallCommand extends Command {
   @Override
   public void execute() {
     if(m_controller.square().getAsBoolean()){
-      m_subsystem.invertClaw();
+      try{
+        Thread.sleep(200);
+        m_subsystem.invertClaw();
+      } catch (InterruptedException e){
+        e.printStackTrace();
+      }
     }
   }
 
