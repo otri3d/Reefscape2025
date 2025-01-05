@@ -14,14 +14,17 @@ import frc.robot.subsystems.DriveSubsystem;
 
 //  Arm Subsystem
 import frc.robot.commands.DefaultArmCommand;
+import frc.robot.commands.CloseArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
 
 //  Ball Mechanism
 import frc.robot.commands.DefaultBallCommand;
+import frc.robot.commands.StopBallCommand;
 import frc.robot.subsystems.BallSubsystem;
 
 //  Control System
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -45,6 +48,11 @@ public class RobotContainer {
     // Create the controllers
     private static CommandPS5Controller driver;
     private static CommandPS4Controller operator;
+
+    // Triggers
+    private Trigger crossTrigger;
+    private Trigger squareTrigger;
+    private Trigger circleTrigger;
   
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -54,6 +62,16 @@ public class RobotContainer {
       // Assign the controllers to port number as stated in the Constants.java file
       driver = new CommandPS5Controller(OperatorConstants.DRIVERCONTROLLERPORT);
       operator = new CommandPS4Controller(OperatorConstants.OPERATORCONTROLLERPORT);
+
+      crossTrigger = operator.cross();
+      crossTrigger.whileTrue(new DefaultArmCommand(m_armSubsystem));
+      crossTrigger.whileFalse(new CloseArmCommand(m_armSubsystem));
+
+      squareTrigger = operator.square();
+      squareTrigger.whileTrue(new DefaultBallCommand(m_ballSubsystem));
+
+      circleTrigger = operator.circle();
+      circleTrigger.whileTrue(new StopBallCommand(m_ballSubsystem));
   
       // The base command that is always running is the moving command
       CommandScheduler.getInstance().setDefaultCommand(m_driveSubsystem, new DefaultDriveCommand(m_driveSubsystem));

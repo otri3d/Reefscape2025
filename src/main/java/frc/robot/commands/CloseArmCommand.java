@@ -2,19 +2,16 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.ArmSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
-import frc.robot.RobotContainer;
 
-// Default Arm Command, goes up and down, coral pickup and dropoff in a different func
-public class DefaultArmCommand extends Command{
+// Open Arm Command, goes up and down, coral pickup and dropoff in a different func
+public class CloseArmCommand extends Command{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     // Variables
     private final ArmSubsystem m_subsystem;
-    private final CommandPS4Controller m_controller = RobotContainer.getOperatorController();
 
 
-    public DefaultArmCommand(ArmSubsystem subsystem) {
+    public CloseArmCommand(ArmSubsystem subsystem) {
         m_subsystem = subsystem;
         addRequirements(m_subsystem);
     }
@@ -26,12 +23,8 @@ public class DefaultArmCommand extends Command{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute(){
-        // Open and close arm
-        m_subsystem.openArm();
-
-        // Move arm up + down
-        double speed = m_controller.getLeftY();
-        m_subsystem.moveArm(speed);
+        m_subsystem.closeArm();
+        m_subsystem.moveArm(0);
     }
     
     // Called once the command ends or is interrupted.

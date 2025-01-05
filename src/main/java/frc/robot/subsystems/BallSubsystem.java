@@ -24,4 +24,8 @@ public class BallSubsystem extends SubsystemBase {
     }
     claw.setInverted(!claw.getInverted());
   }
+
+  public void stopClaw() {
+    claw.set(0.0);
+  }
 }

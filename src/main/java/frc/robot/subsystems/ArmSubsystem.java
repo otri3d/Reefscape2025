@@ -22,6 +22,7 @@ public class ArmSubsystem extends SubsystemBase{
     private WPI_VictorSPX m_armMotor2;
     private Solenoid m_solenoid1;
     private Solenoid m_solenoid2;
+    private boolean m_isOpen = false;
 
     //private DoubleSolenoid m_solenoid;
 
@@ -38,15 +39,20 @@ public class ArmSubsystem extends SubsystemBase{
     }
 
     // Change Solenoid values to open/close arm 
-    public void openArm(boolean value){
-        m_solenoid1.set(value);
-        m_solenoid2.set(!value);
+    public void openArm(){
+        m_solenoid1.set(!m_isOpen);
+        m_solenoid2.set(m_isOpen);
+    }
+
+    public void closeArm(){
+        m_solenoid1.set(m_isOpen);
+        m_solenoid2.set(!m_isOpen);
     }
 
     // Move the arm up and down
-    public void moveArm(double speedConst){
+    public void moveArm(double value){
       //Stop if at min/max location
-        m_armMotor1.set(speedConst*0.67);
+        m_armMotor1.set(value*DriveConstants.ARM_SPEED);
     }
 
     //Check if system is open
