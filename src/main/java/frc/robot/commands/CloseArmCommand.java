@@ -21,6 +21,7 @@ public class CloseArmCommand extends Command{
     public void initialize(){}
     
     // Called every time the scheduler runs while the command is scheduled.
+    //This closes the arm and stops the motor
     @Override
     public void execute(){
         m_subsystem.closeArm();

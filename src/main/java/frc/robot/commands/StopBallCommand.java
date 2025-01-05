@@ -6,17 +6,11 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.BallSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
-import edu.wpi.first.wpilibj.Timer;
-import frc.robot.RobotContainer;
 
 /** An example command that uses an example subsystem. */
 public class StopBallCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final BallSubsystem m_subsystem;
-  private boolean inv = false;
-  private double invTime = 0;
-  private final CommandPS4Controller m_controller = RobotContainer.getOperatorController();
 
   /**
    * Creates a new DefaultBallCommand.
