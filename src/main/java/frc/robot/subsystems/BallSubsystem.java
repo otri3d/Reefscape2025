@@ -14,7 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 public class BallSubsystem extends SubsystemBase {
   private DoubleSolenoid arm;
-  private WPI_VictorSPX ball1, ball2;
+  private WPI_VictorSPX ball1, ball2, claw1, claw2;
   private double speedON = 1.0;
   private double clawConstant = 0.4;
 
@@ -23,8 +23,8 @@ public class BallSubsystem extends SubsystemBase {
   public BallSubsystem() {
     ball1 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT7);
     ball2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT8);
-    ball2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT9);
-    ball2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT10);
+    claw1 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT9);
+    claw2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT10);
 
     arm = new DoubleSolenoid(PneumaticsModuleType.REVPH,OperatorConstants.PNEUMATICPORT1,OperatorConstants.PNEUMATICPORT2);//Change the PORT once created
   }
@@ -35,8 +35,15 @@ public class BallSubsystem extends SubsystemBase {
   }
 
   public void claw() {
-    ball1.set(-speedON * clawConstant);
-    ball2.set(speedON * clawConstant);
+    claw1.set(-speedON * clawConstant);
+    claw2.set(speedON * clawConstant);
+  }
+
+  public void invertClaw() {
+    if(claw1.get() == 0.0 || claw2.get() == 0.0)
+      intake();
+    claw1.setInverted(!claw1.getInverted());
+    claw2.setInverted(!claw2.getInverted());
   }
 
 
