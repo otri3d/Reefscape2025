@@ -12,7 +12,7 @@ import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.subsystems.DriveSubsystem;
 
 //  Control System
-import edu.wpi.first.wpilibj.PS5Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -31,17 +31,17 @@ public class RobotContainer {
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
 
-  //Controller inputs
-  private static PS5Controller driver;
-    //private static CommandPS4Controller operator;
+    //Controller inputs
+    private static CommandPS5Controller driver;
+    private static CommandPS4Controller operator;
   
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
       // Configure the trigger bindings
       configureBindings();
       
-      driver = new PS5Controller(OperatorConstants.DRIVERCONTROLLERPORT);
-      //operator = new CommandPS4Controller(OperatorConstants.OPERATORCONTROLLERPORT);
+      driver = new CommandPS5Controller(OperatorConstants.DRIVERCONTROLLERPORT);
+      operator = new CommandPS4Controller(OperatorConstants.OPERATORCONTROLLERPORT);
   
       CommandScheduler.getInstance().setDefaultCommand(m_driveSubsystem, new DefaultDriveCommand(m_driveSubsystem));
     }
@@ -66,13 +66,13 @@ public class RobotContainer {
     }
   
     //getting controllers
-    public static PS5Controller getDriverController() {
+    public static CommandPS5Controller getDriverController() {
       return driver;
   }
 
-  /*public static CommandPS4Controller getOperatorController() {
+  public static CommandPS4Controller getOperatorController() {
     return operator;
-  }*/
+  }
 
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous

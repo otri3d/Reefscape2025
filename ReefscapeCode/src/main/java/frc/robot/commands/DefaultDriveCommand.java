@@ -2,7 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj.PS5Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import frc.robot.RobotContainer;
 
 
@@ -10,7 +10,7 @@ import frc.robot.RobotContainer;
 public class DefaultDriveCommand extends Command{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final DriveSubsystem m_subsystem;
-    private final PS5Controller m_controller = RobotContainer.getDriverController();
+    private final CommandPS5Controller m_controller = RobotContainer.getDriverController();
     private boolean modeSwitch = false;
 
     public DefaultDriveCommand(DriveSubsystem subsystem) {
@@ -25,8 +25,7 @@ public class DefaultDriveCommand extends Command{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-      System.out.println(m_controller.isConnected());
-      if(m_controller.getCrossButton()){
+      if(m_controller.cross().getAsBoolean()){
         modeSwitch = !modeSwitch;
       }
       if(!modeSwitch){
