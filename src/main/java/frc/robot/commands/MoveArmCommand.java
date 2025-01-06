@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import frc.robot.RobotContainer;
 
 // Default Arm Command, goes up and down, coral pickup and dropoff in a different func
-public class DefaultArmCommand extends Command{
+public class MoveArmCommand extends Command{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     // Variables
@@ -14,7 +14,7 @@ public class DefaultArmCommand extends Command{
     private final CommandPS4Controller m_controller = RobotContainer.getOperatorController();
 
 
-    public DefaultArmCommand(ArmSubsystem subsystem) {
+    public MoveArmCommand(ArmSubsystem subsystem) {
         m_subsystem = subsystem;
         addRequirements(m_subsystem);
     }

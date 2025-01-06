@@ -2,8 +2,6 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.ArmSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
-import frc.robot.RobotContainer;
 
 // Default Arm Command, goes up and down, coral pickup and dropoff in a different func
 public class StopArmCommand extends Command{
@@ -11,7 +9,6 @@ public class StopArmCommand extends Command{
 
     // Variables
     private final ArmSubsystem m_subsystem;
-    private final CommandPS4Controller m_controller = RobotContainer.getOperatorController();
 
 
     public StopArmCommand(ArmSubsystem subsystem) {
