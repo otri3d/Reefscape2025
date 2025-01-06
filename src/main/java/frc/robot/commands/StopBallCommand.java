@@ -6,14 +6,11 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.BallSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj.Timer;
 
 /** An example command that uses an example subsystem. */
-public class DefaultBallCommand extends Command {
+public class StopBallCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final BallSubsystem m_subsystem;
-  private boolean inv = false;
-  private double invTime = 0;
 
   /**
    * Creates a new DefaultBallCommand.
@@ -21,7 +18,7 @@ public class DefaultBallCommand extends Command {
    * @param subsystem The subsystem used by this command.
    */
 
-  public DefaultBallCommand(BallSubsystem subsystem) {
+  public StopBallCommand(BallSubsystem subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -34,14 +31,7 @@ public class DefaultBallCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      if (!inv) {
-          inv = true;
-          invTime = Timer.getFPGATimestamp();
-          m_subsystem.invertClaw();
-      }
-      if (inv && Timer.getFPGATimestamp() - invTime >= 0.2) {
-          inv = false;
-      }
+      m_subsystem.stopClaw();
   }
 
   // Called once the command ends or is interrupted.

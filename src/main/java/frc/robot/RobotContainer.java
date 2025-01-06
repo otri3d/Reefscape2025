@@ -9,19 +9,25 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 
 //  Drive Subsystem
-import frc.robot.commands.DefaultDriveCommand;
+import frc.robot.commands.TankDriveCommand;
+import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.subsystems.DriveSubsystem;
 
 //  Arm Subsystem
-import frc.robot.commands.DefaultArmCommand;
+import frc.robot.commands.MoveArmCommand;
+import frc.robot.commands.CloseArmCommand;
+import frc.robot.commands.OpenArmCommand;
+import frc.robot.commands.StopArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
 
 //  Ball Mechanism
 import frc.robot.commands.DefaultBallCommand;
+import frc.robot.commands.StopBallCommand;
 import frc.robot.subsystems.BallSubsystem;
 
 //  Control System
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -40,25 +46,41 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here
     public final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
     public final ArmSubsystem m_armSubsystem = new ArmSubsystem();
-    public final BallSubsystem m_BallSubsystem = new BallSubsystem();
+    public final BallSubsystem m_ballSubsystem = new BallSubsystem();
 
     // Create the controllers
     private static CommandPS5Controller driver;
     private static CommandPS4Controller operator;
+
+    // Triggers
+    private Trigger crossTankTrigger;
+    private Trigger circleArcadeTrigger;
+    private Trigger crossTrigger;
+    private Trigger squareTrigger;
+    private Trigger circleTrigger;
+    private Trigger triangleTrigger;
   
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
-    public RobotContainer() {
-      // Configure the trigger bindings
-      configureBindings();
-      
+    public RobotContainer() {  
       // Assign the controllers to port number as stated in the Constants.java file
       driver = new CommandPS5Controller(OperatorConstants.DRIVERCONTROLLERPORT);
       operator = new CommandPS4Controller(OperatorConstants.OPERATORCONTROLLERPORT);
+
+      //Triggers
+      crossTankTrigger = driver.cross();
+      circleArcadeTrigger = driver.circle();
+
+      crossTrigger = operator.cross();
+      squareTrigger = operator.square();
+      circleTrigger = operator.circle();
+      triangleTrigger = operator.triangle();
+
+      // Configure the trigger bindings
+      configureBindings();
   
       // The base command that is always running is the moving command
-      CommandScheduler.getInstance().setDefaultCommand(m_driveSubsystem, new DefaultDriveCommand(m_driveSubsystem));
-      CommandScheduler.getInstance().setDefaultCommand(m_armSubsystem, new DefaultArmCommand(m_armSubsystem));
-      CommandScheduler.getInstance().setDefaultCommand(m_BallSubsystem, new DefaultBallCommand(m_BallSubsystem));
+      // Default is Tank
+      CommandScheduler.getInstance().setDefaultCommand(m_driveSubsystem, new TankDriveCommand(m_driveSubsystem));
     }
   
     /**
@@ -71,15 +93,20 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-      /* ALL OF THIS IS SAMPLE CODE PROVIDED */
+      // Button bindings for commands
 
-      // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-      //new Trigger(m_driveSubsystem::exampleCondition)
-      //    .onTrue(new DefaultDriveCommand(m_driveSubsystem));
-  
-      // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-      // cancelling on release.
-      //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+      crossTankTrigger.onTrue(new TankDriveCommand(m_driveSubsystem));
+      circleArcadeTrigger.onTrue(new ArcadeDriveCommand(m_driveSubsystem));
+      
+      crossTrigger.whileTrue(new OpenArmCommand(m_armSubsystem));
+      crossTrigger.whileFalse(new CloseArmCommand(m_armSubsystem));
+
+      squareTrigger.whileTrue(new MoveArmCommand(m_armSubsystem));
+      squareTrigger.whileFalse(new StopArmCommand(m_armSubsystem));
+
+      triangleTrigger.whileTrue(new DefaultBallCommand(m_ballSubsystem));
+
+      circleTrigger.whileTrue(new StopBallCommand(m_ballSubsystem));
     }
   
     // This returns the driver controller objects, allowing our commands to use them

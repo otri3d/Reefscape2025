@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import frc.robot.RobotContainer;
 
 //Default Drive Command via PlayStation 5 Controller
-public class DefaultDriveCommand extends Command {
+public class TankDriveCommand extends Command {
   // This references the DriveSubsystem.java to control the motors assigned
   private final DriveSubsystem m_subsystem;
 
@@ -14,12 +14,7 @@ public class DefaultDriveCommand extends Command {
   // This is what is used to get the values of speed
   private final CommandPS5Controller m_controller = RobotContainer.getDriverController();
 
-  // This will check the state of using single or both of joysticks
-  private boolean modeSwitch = false;
-
-  // This is the constructor for the command
-  // The drive sub
-  public DefaultDriveCommand(DriveSubsystem subsystem) {
+  public TankDriveCommand(DriveSubsystem subsystem) {
     m_subsystem = subsystem;
     addRequirements(m_subsystem);
   }
@@ -32,26 +27,8 @@ public class DefaultDriveCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Check the state for use of modeSwitch
-    if (m_controller.cross().getAsBoolean()) {
-      modeSwitch = !modeSwitch;
-
-      // Reset all motors
-      m_subsystem.setLeftSpeed(0);
-      m_subsystem.setRightSpeed(0);
-  
-    }
-
-    // Once we checked the state, we now move robot based on it
-    if (!modeSwitch) {
-      // We will take the values from the controller and pass to the subsystem
       m_subsystem.setLeftSpeed(-m_controller.getLeftY());
       m_subsystem.setRightSpeed(m_controller.getRightY());
-    } else {
-      // This will pull values from the left joystick only to control the robot
-      m_subsystem.setAcceleratingLeftMotors(-1 * (m_controller.getLeftY() + m_controller.getLeftX()));
-      m_subsystem.setAcceleratingRightMotors(-1 * (m_controller.getLeftY() - m_controller.getLeftX()));
-    }
   }
 
   // Called once finished

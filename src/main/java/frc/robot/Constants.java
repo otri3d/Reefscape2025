@@ -26,14 +26,15 @@ public final class Constants {
     //Arm
     public static final int MOTORCONTROLPORT5 = 5;
     public static final int MOTORCONTROLPORT6 = 6;
-    public static final int PNEUMATICPORT1 = 1;
-    public static final int PNEUMATICPORT2 = 2;
+    
+    public static final int PNEUMATICPORT1 = 0;
+    public static final int PNEUMATICPORT2 = 1;
     
     // BALL
     public static final int MOTORCONTROLPORT7 = 7;
   }
   public static class DriveConstants {
     public static final double ACCELERATION_CONSTANT = 0.04;
-    public static final double ELEVATOR_ACCELERATION_CONSTANT = 0.7;
+    public static final double ARM_SPEED = 0.5;
   }
 }
