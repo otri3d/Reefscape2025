@@ -29,8 +29,8 @@ public class ArcadeDriveCommand extends Command {
   // controller left stick position
   @Override
   public void execute() {
-    m_subsystem.setAcceleratingLeftMotors(-1 * (m_controller.getLeftY() + m_controller.getLeftX()));
-    m_subsystem.setAcceleratingRightMotors(-1 * (m_controller.getLeftY() - m_controller.getLeftX()));
+      m_subsystem.setAcceleratingLeftMotors(1 * (m_controller.getLeftY() + m_controller.getLeftX()));
+      m_subsystem.setAcceleratingRightMotors(1 * (m_controller.getLeftY() - m_controller.getLeftX()));
   }
 
   // Called once finished

@@ -1,34 +1,31 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.Constants.DriveConstants;
 
-/* Subsystem for the coral arm */
-public class ArmSubsystem extends SubsystemBase {
-
+public class PneumaticSubsystem extends SubsystemBase{
     // Variables
-    private WPI_VictorSPX m_armMotor1;
-    private WPI_VictorSPX m_armMotor2;
+    private DoubleSolenoid m_solenoid;
 
     //private DoubleSolenoid m_solenoid;
 
     //Public constructor
-    public ArmSubsystem(){
-        m_armMotor1 = new WPI_VictorSPX(OperatorConstants.ARM1);
-        m_armMotor2 = new WPI_VictorSPX(OperatorConstants.ARM2);
-
-        m_armMotor1.setInverted(true);
-        m_armMotor2.follow(m_armMotor1);
+    public PneumaticSubsystem(){
+        m_solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, OperatorConstants.PNEUMATICPORT1, OperatorConstants.PNEUMATICPORT2);
+        m_solenoid.set(Value.kReverse);
     }
 
-    // Move the arm up and down
-    public void moveArm(double value){
-      //Stop if at min/max location
-        m_armMotor1.set(value*DriveConstants.ARM_SPEED);
+    // Change Solenoid values to open/close arm 
+    public void openArm(){
+        m_solenoid.set(Value.kForward);
+    }
+
+    public void closeArm(){
+        m_solenoid.set(Value.kReverse);
     }
     
   /**

@@ -7,28 +7,17 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.DriveConstants;
 
-/* Subsystem for the coral arm */
-public class ArmSubsystem extends SubsystemBase {
-
+public class ClawSubsystem extends SubsystemBase{
     // Variables
-    private WPI_VictorSPX m_armMotor1;
-    private WPI_VictorSPX m_armMotor2;
-
-    //private DoubleSolenoid m_solenoid;
+    private WPI_VictorSPX m_armMotorU;
 
     //Public constructor
-    public ArmSubsystem(){
-        m_armMotor1 = new WPI_VictorSPX(OperatorConstants.ARM1);
-        m_armMotor2 = new WPI_VictorSPX(OperatorConstants.ARM2);
-
-        m_armMotor1.setInverted(true);
-        m_armMotor2.follow(m_armMotor1);
+    public ClawSubsystem(){
+        m_armMotorU = new WPI_VictorSPX(OperatorConstants.ARM3);
     }
 
-    // Move the arm up and down
-    public void moveArm(double value){
-      //Stop if at min/max location
-        m_armMotor1.set(value*DriveConstants.ARM_SPEED);
+    public void moveWrist(double value){
+        m_armMotorU.set(value*DriveConstants.WRIST_SPEED);
     }
     
   /**

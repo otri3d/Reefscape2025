@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -16,14 +17,13 @@ public class BallSubsystem extends SubsystemBase {
 
   /** Creates a new subsystem for the ball to use. */
   public BallSubsystem() {
-    // Assign the port for the claw from the Constants.java file
-    claw = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT7);
+    claw = new WPI_VictorSPX(OperatorConstants.BALLMOTOR);
   }
 
   // We invert the claw
   public void invertClaw() {
-    if (claw.get() == 0.0) {
-      claw.set(-1.0);
+    if(claw.get() == 0.0){
+      claw.set(-DriveConstants.INTAKE_SPEED);
     }
     claw.setInverted(!claw.getInverted());
   }

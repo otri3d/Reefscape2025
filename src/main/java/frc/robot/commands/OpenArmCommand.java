@@ -1,15 +1,16 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.PneumaticSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 // Open Arm Command, goes up and down, coral pickup and dropoff in a different func
 public class OpenArmCommand extends Command {
 
-    // Reference the arm subsystem which we will be using
-    private final ArmSubsystem m_subsystem;
+    // Variables
+    private final PneumaticSubsystem m_subsystem;
 
-    public OpenArmCommand(ArmSubsystem subsystem) {
+
+    public OpenArmCommand(PneumaticSubsystem subsystem) {
         m_subsystem = subsystem;
         addRequirements(m_subsystem);
     }
