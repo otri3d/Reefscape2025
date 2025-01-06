@@ -4,12 +4,10 @@ import frc.robot.subsystems.ArmSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 // Open Arm Command, goes up and down, coral pickup and dropoff in a different func
-public class CloseArmCommand extends Command{
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+public class CloseArmCommand extends Command {
 
-    // Variables
+    // Reference the arm subsystem which we will be using
     private final ArmSubsystem m_subsystem;
-
 
     public CloseArmCommand(ArmSubsystem subsystem) {
         m_subsystem = subsystem;
@@ -18,24 +16,25 @@ public class CloseArmCommand extends Command{
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize(){}
-    
-    // Called every time the scheduler runs while the command is scheduled.
-    //This closes the arm and stops the motor
+    public void initialize() {
+    }
+
+    // Execute will run the code when the command is called
+    // This closes the arm and stops the motor
     @Override
-    public void execute(){
+    public void execute() {
         m_subsystem.closeArm();
     }
-    
+
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
-    
+    public void end(boolean interrupted) {
+    }
+
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-      return false;
+        return false;
     }
-
 
 }

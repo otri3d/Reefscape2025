@@ -43,84 +43,102 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-    // The robot's subsystems and commands are defined here
-    public final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-    public final ArmSubsystem m_armSubsystem = new ArmSubsystem();
-    public final BallSubsystem m_ballSubsystem = new BallSubsystem();
+  // The robot's subsystems and commands are defined here
+  public final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+  public final ArmSubsystem m_armSubsystem = new ArmSubsystem();
+  public final BallSubsystem m_ballSubsystem = new BallSubsystem();
 
-    // Create the controllers
-    private static CommandPS5Controller driver;
-    private static CommandPS4Controller operator;
+  // Create the controllers
+  private static CommandPS5Controller driver;
+  private static CommandPS4Controller operator;
 
-    // Triggers
-    private Trigger crossTankTrigger;
-    private Trigger circleArcadeTrigger;
-    private Trigger crossTrigger;
-    private Trigger squareTrigger;
-    private Trigger circleTrigger;
-    private Trigger triangleTrigger;
-  
-    /** The container for the robot. Contains subsystems, OI devices, and commands. */
-    public RobotContainer() {  
-      // Assign the controllers to port number as stated in the Constants.java file
-      driver = new CommandPS5Controller(OperatorConstants.DRIVERCONTROLLERPORT);
-      operator = new CommandPS4Controller(OperatorConstants.OPERATORCONTROLLERPORT);
+  // Define all the triggers we will be using for control
+  private Trigger crossTankTrigger;
+  private Trigger circleArcadeTrigger;
+  private Trigger crossTrigger;
+  private Trigger squareTrigger;
+  private Trigger circleTrigger;
+  private Trigger triangleTrigger;
 
-      //Triggers
-      crossTankTrigger = driver.cross();
-      circleArcadeTrigger = driver.circle();
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
+  public RobotContainer() {
+    // Assign the controllers to port number as stated in the Constants.java file
+    driver = new CommandPS5Controller(OperatorConstants.DRIVERCONTROLLERPORT);
+    operator = new CommandPS4Controller(OperatorConstants.OPERATORCONTROLLERPORT);
 
-      crossTrigger = operator.cross();
-      squareTrigger = operator.square();
-      circleTrigger = operator.circle();
-      triangleTrigger = operator.triangle();
+    // Assign the triggers to the buttons from each controller
+    // driver.circle() is the circle buttom from the driver controller
+    crossTankTrigger = driver.cross();
+    circleArcadeTrigger = driver.circle();
 
-      // Configure the trigger bindings
-      configureBindings();
-  
-      // The base command that is always running is the moving command
-      // Default is Tank
-      CommandScheduler.getInstance().setDefaultCommand(m_driveSubsystem, new TankDriveCommand(m_driveSubsystem));
-    }
-  
-    /**
-     * Use this method to define your trigger->command mappings. Triggers can be created via the
-     * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
-     * predicate, or via the named factories in {@link
-     * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-     * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-     * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-     * joysticks}.
-     */
-    private void configureBindings() {
-      // Button bindings for commands
+    crossTrigger = operator.cross();
+    squareTrigger = operator.square();
+    circleTrigger = operator.circle();
+    triangleTrigger = operator.triangle();
 
-      crossTankTrigger.onTrue(new TankDriveCommand(m_driveSubsystem));
-      circleArcadeTrigger.onTrue(new ArcadeDriveCommand(m_driveSubsystem));
-      
-      crossTrigger.whileTrue(new OpenArmCommand(m_armSubsystem));
-      crossTrigger.whileFalse(new CloseArmCommand(m_armSubsystem));
+    // Configure the trigger bindings
+    configureBindings();
 
-      squareTrigger.whileTrue(new MoveArmCommand(m_armSubsystem));
-      squareTrigger.whileFalse(new StopArmCommand(m_armSubsystem));
+    // The base command that is always running, in this case it is the moving
+    // command
+    CommandScheduler.getInstance().setDefaultCommand(m_driveSubsystem, new TankDriveCommand(m_driveSubsystem));
+  }
 
-      triangleTrigger.whileTrue(new DefaultBallCommand(m_ballSubsystem));
+  /**
+   * Use this method to define your trigger->command mappings. Triggers can be
+   * created via the
+   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
+   * an arbitrary
+   * predicate, or via the named factories in {@link
+   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
+   * {@link
+   * CommandXboxController
+   * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+   * PS4} controllers or
+   * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+   * joysticks}.
+   */
+  private void configureBindings() {
+    // Assign the commands to each trigger/button
+    // onTrue will run the command only once when the button/trigger is intiallied
+    // pressed
+    // whileTrue will run the command continously while the trigger/button is
+    // pressed
+    // whileFalse will not run the command continously while the trigger/button is
+    // not pressed
+    crossTankTrigger.onTrue(new TankDriveCommand(m_driveSubsystem));
+    circleArcadeTrigger.onTrue(new ArcadeDriveCommand(m_driveSubsystem));
 
-      circleTrigger.whileTrue(new StopBallCommand(m_ballSubsystem));
-    }
-  
-    // This returns the driver controller objects, allowing our commands to use them
-    public static CommandPS5Controller getDriverController() {
-      return driver;
-    }
+    crossTrigger.whileTrue(new OpenArmCommand(m_armSubsystem));
+    crossTrigger.whileFalse(new CloseArmCommand(m_armSubsystem));
 
-    // This returns the operator controller objects, allowing our commands to use them
-    public static CommandPS4Controller getOperatorController() {
-      return operator;
-    }
+    squareTrigger.whileTrue(new MoveArmCommand(m_armSubsystem));
+    squareTrigger.whileFalse(new StopArmCommand(m_armSubsystem));
 
-    public Command getAutonomousCommand() {
-      // An example command will be run in autonomous
-      return Autos.exampleAuto(null);
-    }
+    triangleTrigger.whileTrue(new DefaultBallCommand(m_ballSubsystem));
+
+    circleTrigger.whileTrue(new StopBallCommand(m_ballSubsystem));
+  }
+
+  // This returns the driver controller objects, allowing our commands to use them
+  public static CommandPS5Controller getDriverController() {
+    return driver;
+  }
+
+  // This returns the operator controller objects, allowing our commands to use
+  // them
+  public static CommandPS4Controller getOperatorController() {
+    return operator;
+  }
+
+  // This is here as this is how the auto is ran
+  // A command which tends to be a sequence of several are chained together
+  // This method can be implemented in a way to pick from a list
+  // We do not do any of this
+  public Command getAutonomousCommand() {
+    // This is unused, we do not have autos programmed
+    return Autos.exampleAuto();
+  }
 }
