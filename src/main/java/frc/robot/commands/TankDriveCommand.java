@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import frc.robot.RobotContainer;
 
-//Default Drive Command via PlayStation 5 Controller
+// Default Drive Command via PlayStation 5 Controller
 public class TankDriveCommand extends Command {
   // This references the DriveSubsystem.java to control the motors assigned
   private final DriveSubsystem m_subsystem;
@@ -24,11 +24,12 @@ public class TankDriveCommand extends Command {
   public void initialize() {
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  // Execute will run the code when the command is called
+  // This will set the speed of our drivetrain motors to move
   @Override
   public void execute() {
-      m_subsystem.setLeftSpeed(-m_controller.getLeftY());
-      m_subsystem.setRightSpeed(m_controller.getRightY());
+    m_subsystem.setLeftSpeed(-m_controller.getLeftY());
+    m_subsystem.setRightSpeed(m_controller.getRightY());
   }
 
   // Called once finished
