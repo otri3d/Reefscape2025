@@ -1,11 +1,7 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Solenoid;
-//import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -22,6 +18,7 @@ public class ArmSubsystem extends SubsystemBase{
     private WPI_VictorSPX m_armMotor2;
     private Solenoid m_solenoid1;
     private Solenoid m_solenoid2;
+    private boolean m_isOpen = false;
 
     //private DoubleSolenoid m_solenoid;
 
@@ -34,18 +31,24 @@ public class ArmSubsystem extends SubsystemBase{
         m_solenoid2 = new Solenoid(PneumaticsModuleType.CTREPCM, OperatorConstants.PNEUMATICPORT2);
 
         m_armMotor2.follow(m_armMotor1);
+        m_solenoid2.set(true);
     }
 
     // Change Solenoid values to open/close arm 
-    public void openArm(boolean value){
-        m_solenoid1.set(value);
-        m_solenoid2.set(!value);
+    public void openArm(){
+        m_solenoid1.set(!m_isOpen);
+        m_solenoid2.set(m_isOpen);
+    }
+
+    public void closeArm(){
+        m_solenoid1.set(m_isOpen);
+        m_solenoid2.set(!m_isOpen);
     }
 
     // Move the arm up and down
-    public void moveArm(double speedConst){
+    public void moveArm(double value){
       //Stop if at min/max location
-        m_armMotor1.set(speedConst);
+        m_armMotor1.set(value*DriveConstants.ARM_SPEED);
     }
 
     //Check if system is open
