@@ -1,9 +1,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -22,15 +19,15 @@ public class ArmSubsystem extends SubsystemBase{
 
     //Public constructor
     public ArmSubsystem(){
-        m_armMotor1 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORTA1);
-        m_armMotor2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORTA2);
+        m_armMotor1 = new WPI_VictorSPX(OperatorConstants.ARM1);
+        m_armMotor2 = new WPI_VictorSPX(OperatorConstants.ARM2);
 
         m_armMotor1.setInverted(true);
         m_armMotor2.follow(m_armMotor1);
     }
 
     // Move the arm up and down
-    public void moveArm(double value, double value2){
+    public void moveArm(double value){
       //Stop if at min/max location
         m_armMotor1.set(value*DriveConstants.ARM_SPEED);
     }

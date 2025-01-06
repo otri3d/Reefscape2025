@@ -26,7 +26,7 @@ public class MoveWristCommand extends Command{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute(){
-        double speed = m_controller.getLeftY();
+        double speed = m_controller.getRightY();
         m_subsystem.moveWrist(speed);
     }
     

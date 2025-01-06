@@ -14,13 +14,10 @@ public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
     // Create the motors with the assigned port that we listed in the constants file
-    m_left1 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORTL1);
-    m_left2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORTL2);
-    m_right1 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORTR1);
-    m_right2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORTR2);
-
-    //Invert right side of the motors
-    m_right1.setInverted(true);
+    m_left1 = new WPI_VictorSPX(OperatorConstants.DRIVEL1);
+    m_left2 = new WPI_VictorSPX(OperatorConstants.DRIVEL2);
+    m_right1 = new WPI_VictorSPX(OperatorConstants.DRIVER1);
+    m_right2 = new WPI_VictorSPX(OperatorConstants.DRIVER2);
 
     // This will ensure that the motors on the same side share power output
     // Prevents the possibility that programmers forget to power both sides
@@ -45,6 +42,7 @@ public class DriveSubsystem extends SubsystemBase {
       m_speed1 = 0;
     }
     m_speed1 += leftStickInput * DriveConstants.ACCELERATION_CONSTANT;
+    System.out.println(m_speed1);
     m_left1.set(MathUtil.clamp(m_speed1, -1.0, 1.0) * -1);
   }
 
@@ -55,6 +53,7 @@ public class DriveSubsystem extends SubsystemBase {
       m_speed2 = 0;
     }
     m_speed2 += rightStickInput * DriveConstants.ACCELERATION_CONSTANT;
+    System.out.println(m_speed2);
     m_right1.set(MathUtil.clamp(m_speed2, -1.0, 1.0));
   }
 

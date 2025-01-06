@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.ClawSubsystem;
+import frc.robot.subsystems.PneumaticSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 // Open Arm Command, goes up and down, coral pickup and dropoff in a different func
@@ -8,10 +8,10 @@ public class CloseArmCommand extends Command{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     // Variables
-    private final ClawSubsystem m_subsystem;
+    private final PneumaticSubsystem m_subsystem;
 
 
-    public CloseArmCommand(ClawSubsystem subsystem) {
+    public CloseArmCommand(PneumaticSubsystem subsystem) {
         m_subsystem = subsystem;
         addRequirements(m_subsystem);
     }

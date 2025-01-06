@@ -1,23 +1,31 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.Constants.DriveConstants;
 
-public class ClawSubsystem extends SubsystemBase{
+public class PneumaticSubsystem extends SubsystemBase{
     // Variables
-    private WPI_VictorSPX m_armMotorU;
+    private DoubleSolenoid m_solenoid;
+
+    //private DoubleSolenoid m_solenoid;
 
     //Public constructor
-    public ClawSubsystem(){
-        m_armMotorU = new WPI_VictorSPX(OperatorConstants.ARM3);
+    public PneumaticSubsystem(){
+        m_solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, OperatorConstants.PNEUMATICPORT1, OperatorConstants.PNEUMATICPORT2);
+        m_solenoid.set(Value.kReverse);
     }
 
-    public void moveWrist(double value){
-        m_armMotorU.set(value*DriveConstants.WRIST_SPEED);
+    // Change Solenoid values to open/close arm 
+    public void openArm(){
+        m_solenoid.set(Value.kForward);
+    }
+
+    public void closeArm(){
+        m_solenoid.set(Value.kReverse);
     }
     
   /**

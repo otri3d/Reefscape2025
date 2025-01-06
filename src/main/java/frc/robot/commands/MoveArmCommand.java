@@ -27,8 +27,7 @@ public class MoveArmCommand extends Command{
     @Override
     public void execute(){
         double speed = m_controller.getLeftY();
-        double jointSpeed = m_controller.getRightY();
-        m_subsystem.moveArm(speed, jointSpeed);
+        m_subsystem.moveArm(speed);
     }
     
     // Called once the command ends or is interrupted.

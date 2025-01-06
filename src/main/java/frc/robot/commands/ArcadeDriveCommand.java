@@ -27,8 +27,8 @@ public class ArcadeDriveCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      m_subsystem.setAcceleratingLeftMotors(-1 * (m_controller.getLeftY() + m_controller.getLeftX()));
-      m_subsystem.setAcceleratingRightMotors(-1 * (m_controller.getLeftY() - m_controller.getLeftX()));
+      m_subsystem.setAcceleratingLeftMotors(1 * (m_controller.getLeftY() + m_controller.getLeftX()));
+      m_subsystem.setAcceleratingRightMotors(1 * (m_controller.getLeftY() - m_controller.getLeftX()));
   }
 
   // Called once finished

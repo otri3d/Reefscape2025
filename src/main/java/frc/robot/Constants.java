@@ -18,25 +18,26 @@ public final class Constants {
     public static final int OPERATORCONTROLLERPORT = 1;
 
     //Motor Controller Ports
-    public static final int MOTORCONTROLPORTL1 = 9;
-    public static final int MOTORCONTROLPORTL2 = 1;
-    public static final int MOTORCONTROLPORTR1 = 3;
-    public static final int MOTORCONTROLPORTR2 = 4;
+    public static final int DRIVEL1 = 9;
+    public static final int DRIVEL2 = 1;
+    public static final int DRIVER1 = 3;
+    public static final int DRIVER2 = 4;
 
     //Arm
-    public static final int MOTORCONTROLPORTA1 = 8;
-    public static final int MOTORCONTROLPORTA2 = 10;
-    public static final int MOTORCONTROLPORTA3 = 2;
+    public static final int ARM1 = 8;
+    public static final int ARM2 = 10;
+    public static final int ARM3 = 2;
     
     public static final int PNEUMATICPORT1 = 0;
     public static final int PNEUMATICPORT2 = 1;
     
     // BALL
-    public static final int MOTORCONTROLBALL = 6;
+    public static final int BALLMOTOR = 6;
   }
   public static class DriveConstants {
-    public static final double ACCELERATION_CONSTANT = 0.04;
-    public static final double ARM_SPEED = 0.5;
-    public static final double WRIST_SPEED = 0.2;
+    public static final double ACCELERATION_CONSTANT = 0.02;
+    public static final double ARM_SPEED = 0.35;
+    public static final double WRIST_SPEED = 0.35;
+    public static final double INTAKE_SPEED = 0.45;
   }
 }
