@@ -14,10 +14,13 @@ public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
     // Create the motors with the assigned port that we listed in the constants file
-    m_left1 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT3);
-    m_left2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT2);
-    m_right1 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT1);
-    m_right2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT4);
+    m_left1 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORTL1);
+    m_left2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORTL2);
+    m_right1 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORTR1);
+    m_right2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORTR2);
+
+    //Invert right side of the motors
+    m_right1.setInverted(true);
 
     // This will ensure that the motors on the same side share power output
     // Prevents the possibility that programmers forget to power both sides

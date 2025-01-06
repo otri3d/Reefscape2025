@@ -24,11 +24,13 @@ public class ArmSubsystem extends SubsystemBase{
 
     //Public constructor
     public ArmSubsystem(){
-        m_armMotor1 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT5);
-        m_armMotor2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT6);
+        m_armMotor1 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORTA1);
+        m_armMotor2 = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORTA2);
 
-        m_solenoid1 = new Solenoid(PneumaticsModuleType.CTREPCM, OperatorConstants.PNEUMATICPORT1);
-        m_solenoid2 = new Solenoid(PneumaticsModuleType.CTREPCM, OperatorConstants.PNEUMATICPORT2);
+        m_solenoid1 = new Solenoid(9, PneumaticsModuleType.CTREPCM, OperatorConstants.PNEUMATICPORT1);
+        m_solenoid2 = new Solenoid(9, PneumaticsModuleType.CTREPCM, OperatorConstants.PNEUMATICPORT2);
+
+        //m_solenoid = new DoubleSolenoid(9, PneumaticsModuleType.CTREPCM, 0, 1);
 
         m_armMotor2.follow(m_armMotor1);
         m_solenoid2.set(true);

@@ -6,7 +6,6 @@ package frc.robot;
 
 // Default
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
 
 //  Drive Subsystem
 import frc.robot.commands.TankDriveCommand;
@@ -30,7 +29,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
@@ -117,10 +115,5 @@ public class RobotContainer {
     // This returns the operator controller objects, allowing our commands to use them
     public static CommandPS4Controller getOperatorController() {
       return operator;
-    }
-
-    public Command getAutonomousCommand() {
-      // An example command will be run in autonomous
-      return Autos.exampleAuto(null);
     }
 }
