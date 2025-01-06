@@ -9,22 +9,26 @@ import frc.robot.Constants.OperatorConstants;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+/* Subsystem for the algee  */
 public class BallSubsystem extends SubsystemBase {
+  // Define the motor that we will use for the claw
   private WPI_VictorSPX claw;
 
-  /** Creates a new Ball. */
-
+  /** Creates a new subsystem for the ball to use. */
   public BallSubsystem() {
+    // Assign the port for the claw from the Constants.java file
     claw = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT7);
   }
 
+  // We invert the claw
   public void invertClaw() {
-    if(claw.get() == 0.0){
+    if (claw.get() == 0.0) {
       claw.set(-1.0);
     }
     claw.setInverted(!claw.getInverted());
   }
 
+  // This will stop the claw
   public void stopClaw() {
     claw.set(0.0);
   }
