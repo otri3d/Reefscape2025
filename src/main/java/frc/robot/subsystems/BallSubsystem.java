@@ -15,7 +15,7 @@ public class BallSubsystem extends SubsystemBase {
   /** Creates a new Ball. */
 
   public BallSubsystem() {
-    claw = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLPORT7);
+    claw = new WPI_VictorSPX(OperatorConstants.MOTORCONTROLBALL);
   }
 
   public void invertClaw() {

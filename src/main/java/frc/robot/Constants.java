@@ -24,18 +24,18 @@ public final class Constants {
     public static final int MOTORCONTROLPORTR2 = 4;
 
     //Arm
-    public static final int MOTORCONTROLPORTA1 = 5;
-    public static final int MOTORCONTROLPORTA2 = 6;
+    public static final int MOTORCONTROLPORTA1 = 8;
+    public static final int MOTORCONTROLPORTA2 = 10;
+    public static final int MOTORCONTROLPORTA3 = 2;
     
     public static final int PNEUMATICPORT1 = 0;
     public static final int PNEUMATICPORT2 = 1;
     
     // BALL
-    public static final int MOTORCONTROLPORT7 = 7;
-    public static final int MOTORCONTROLBALL2 = 8;
+    public static final int MOTORCONTROLBALL = 6;
   }
   public static class DriveConstants {
     public static final double ACCELERATION_CONSTANT = 0.04;
-    public static final double ARM_SPEED = 0.5;
+    public static final double ARM_SPEED = 0.8;
   }
 }
