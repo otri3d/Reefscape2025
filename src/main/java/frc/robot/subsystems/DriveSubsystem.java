@@ -7,8 +7,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.DriveConstants;
 
+/* Subsystem to make the robot go vroom */
 public class DriveSubsystem extends SubsystemBase {
+  // These are the motors we will be using
   private WPI_VictorSPX m_left1, m_left2, m_right1, m_right2;
+
+  // These are the speed values that will be used
   private double m_speed1 = 0.0, m_speed2 = 0.0;
 
   /** Creates a new DriveSubsystem. */
@@ -55,11 +59,6 @@ public class DriveSubsystem extends SubsystemBase {
     m_speed2 += rightStickInput * DriveConstants.ACCELERATION_CONSTANT;
     System.out.println(m_speed2);
     m_right1.set(MathUtil.clamp(m_speed2, -1.0, 1.0));
-  }
-
-  //Example Cond for binding config
-  public boolean exampleCondition() {
-    return false;
   }
 
   @Override

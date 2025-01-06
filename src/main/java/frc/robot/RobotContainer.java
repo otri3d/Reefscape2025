@@ -52,9 +52,9 @@ public class RobotContainer {
     public final ClawSubsystem m_clawSubsystem = new ClawSubsystem();
     private final PneumaticSubsystem m_pneumaticSubsystem = new PneumaticSubsystem();
 
-    // Create the controllers
-    private static CommandPS5Controller driver;
-    private static CommandPS4Controller operator;
+  // Create the controllers
+  private static CommandPS5Controller driver;
+  private static CommandPS4Controller operator;
 
     // Triggers
     private Trigger crossTankTrigger;
@@ -69,9 +69,10 @@ public class RobotContainer {
       driver = new CommandPS5Controller(OperatorConstants.DRIVERCONTROLLERPORT);
       operator = new CommandPS4Controller(OperatorConstants.OPERATORCONTROLLERPORT);
 
-      //Triggers
-      crossTankTrigger = driver.cross();
-      circleArcadeTrigger = driver.circle();
+    // Assign the triggers to the buttons from each controller
+    // driver.circle() is the circle buttom from the driver controller
+    crossTankTrigger = driver.cross();
+    circleArcadeTrigger = driver.circle();
 
       r1Trigger = operator.R1();
       circleTrigger = operator.circle();
@@ -105,15 +106,15 @@ public class RobotContainer {
       r1Trigger.onTrue(new CloseArmCommand(m_pneumaticSubsystem));
       r1Trigger.onFalse(new OpenArmCommand(m_pneumaticSubsystem));
 
-      triangleTrigger.whileTrue(new DefaultBallCommand(m_ballSubsystem));
+    triangleTrigger.whileTrue(new DefaultBallCommand(m_ballSubsystem));
 
-      circleTrigger.whileTrue(new StopBallCommand(m_ballSubsystem));
-    }
-  
-    // This returns the driver controller objects, allowing our commands to use them
-    public static CommandPS5Controller getDriverController() {
-      return driver;
-    }
+    circleTrigger.whileTrue(new StopBallCommand(m_ballSubsystem));
+  }
+
+  // This returns the driver controller objects, allowing our commands to use them
+  public static CommandPS5Controller getDriverController() {
+    return driver;
+  }
 
     // This returns the operator controller objects, allowing our commands to use them
     public static CommandPS4Controller getOperatorController() {

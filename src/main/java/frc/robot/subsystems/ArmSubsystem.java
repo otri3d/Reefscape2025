@@ -7,9 +7,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.DriveConstants;
 
-
-/* Subsystem for the coral arm*/
-public class ArmSubsystem extends SubsystemBase{
+/* Subsystem for the coral arm */
+public class ArmSubsystem extends SubsystemBase {
 
     // Variables
     private WPI_VictorSPX m_armMotor1;

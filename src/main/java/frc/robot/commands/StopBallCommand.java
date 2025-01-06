@@ -7,36 +7,33 @@ package frc.robot.commands;
 import frc.robot.subsystems.BallSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-/** An example command that uses an example subsystem. */
+// Command to make the ball subsystem stationairy
 public class StopBallCommand extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  
+  // Reference the ball subsystem which will be used
   private final BallSubsystem m_subsystem;
-
-  /**
-   * Creates a new DefaultBallCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
 
   public StopBallCommand(BallSubsystem subsystem) {
     m_subsystem = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  // Execute will run the code when the command is called
+  // In this case we will stop the moving the claw motors
   @Override
   public void execute() {
-      m_subsystem.stopClaw();
+    m_subsystem.stopClaw();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

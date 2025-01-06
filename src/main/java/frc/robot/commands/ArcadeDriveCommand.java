@@ -24,7 +24,9 @@ public class ArcadeDriveCommand extends Command {
   public void initialize() {
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  // Execute will run the code when the command is called
+  // In this case we will be applying speed to the drive train based on driver
+  // controller left stick position
   @Override
   public void execute() {
       m_subsystem.setAcceleratingLeftMotors(1 * (m_controller.getLeftY() + m_controller.getLeftX()));
