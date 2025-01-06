@@ -35,7 +35,8 @@ public class ArmSubsystem extends SubsystemBase {
     m_solenoid2 = new Solenoid(PneumaticsModuleType.CTREPCM, OperatorConstants.PNEUMATICPORT2);
 
     // This will have the second motor follow the first
-    // Ensuring that they will match each other and not compete on direction or speed
+    // Ensuring that they will match each other and not compete on direction or
+    // speed
     m_armMotor2.follow(m_armMotor1);
 
     // This will turn the solenoid on when we start
