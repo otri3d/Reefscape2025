@@ -18,6 +18,7 @@ import frc.robot.commands.CloseArmCommand;
 import frc.robot.commands.OpenArmCommand;
 import frc.robot.commands.StopArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 
 //  Ball Mechanism
 import frc.robot.commands.DefaultBallCommand;
@@ -45,6 +46,7 @@ public class RobotContainer {
     public final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
     public final ArmSubsystem m_armSubsystem = new ArmSubsystem();
     public final BallSubsystem m_ballSubsystem = new BallSubsystem();
+    public final ClawSubsystem m_clawSubsystem = new ClawSubsystem();
 
     // Create the controllers
     private static CommandPS5Controller driver;
@@ -57,6 +59,7 @@ public class RobotContainer {
     private Trigger squareTrigger;
     private Trigger circleTrigger;
     private Trigger triangleTrigger;
+    private Trigger l1Trigger;
   
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {  
@@ -72,6 +75,7 @@ public class RobotContainer {
       squareTrigger = operator.square();
       circleTrigger = operator.circle();
       triangleTrigger = operator.triangle();
+      l1Trigger = operator.L1();
 
       // Configure the trigger bindings
       configureBindings();
@@ -96,11 +100,14 @@ public class RobotContainer {
       crossTankTrigger.onTrue(new TankDriveCommand(m_driveSubsystem));
       circleArcadeTrigger.onTrue(new ArcadeDriveCommand(m_driveSubsystem));
       
-      crossTrigger.whileTrue(new OpenArmCommand(m_armSubsystem));
-      crossTrigger.whileFalse(new CloseArmCommand(m_armSubsystem));
+      crossTrigger.whileTrue(new OpenArmCommand(m_clawSubsystem));
+      crossTrigger.whileFalse(new CloseArmCommand(m_clawSubsystem));
 
       squareTrigger.whileTrue(new MoveArmCommand(m_armSubsystem));
       squareTrigger.whileFalse(new StopArmCommand(m_armSubsystem));
+
+      l1Trigger.whileTrue(new DefaultBallCommand(m_ballSubsystem));
+      l1Trigger.whileFalse(new MoveArmCommand(m_armSubsystem));
 
       triangleTrigger.whileTrue(new DefaultBallCommand(m_ballSubsystem));
 

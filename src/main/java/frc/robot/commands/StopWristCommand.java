@@ -3,15 +3,15 @@ package frc.robot.commands;
 import frc.robot.subsystems.ClawSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-// Open Arm Command, goes up and down, coral pickup and dropoff in a different func
-public class CloseArmCommand extends Command{
+// Default Arm Command, goes up and down, coral pickup and dropoff in a different func
+public class StopWristCommand extends Command{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     // Variables
     private final ClawSubsystem m_subsystem;
 
 
-    public CloseArmCommand(ClawSubsystem subsystem) {
+    public StopWristCommand (ClawSubsystem subsystem) {
         m_subsystem = subsystem;
         addRequirements(m_subsystem);
     }
@@ -21,10 +21,9 @@ public class CloseArmCommand extends Command{
     public void initialize(){}
     
     // Called every time the scheduler runs while the command is scheduled.
-    //This closes the arm and stops the motor
     @Override
     public void execute(){
-        m_subsystem.closeArm();
+        m_subsystem.moveWrist(0.0);
     }
     
     // Called once the command ends or is interrupted.

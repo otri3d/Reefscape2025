@@ -36,6 +36,7 @@ public final class Constants {
   }
   public static class DriveConstants {
     public static final double ACCELERATION_CONSTANT = 0.04;
-    public static final double ARM_SPEED = 0.8;
+    public static final double ARM_SPEED = 0.5;
+    public static final double WRIST_SPEED = 0.2;
   }
 }
