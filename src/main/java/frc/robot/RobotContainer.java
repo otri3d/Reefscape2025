@@ -10,14 +10,13 @@ import frc.robot.Constants.OperatorConstants;
 //  Drive Subsystem
 import frc.robot.commands.TankDriveCommand;
 import frc.robot.commands.ArcadeDriveCommand;
+import frc.robot.commands.CloseArmCommand;
 import frc.robot.subsystems.DriveSubsystem;
 
 //  Arm Subsystem
 import frc.robot.commands.MoveArmCommand;
 import frc.robot.commands.MoveWristCommand;
-import frc.robot.commands.CloseArmCommand;
 import frc.robot.commands.OpenArmCommand;
-import frc.robot.commands.StopArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.PneumaticSubsystem;
@@ -25,12 +24,10 @@ import frc.robot.subsystems.PneumaticSubsystem;
 //  Ball Mechanism
 import frc.robot.commands.DefaultBallCommand;
 import frc.robot.commands.StopBallCommand;
-import frc.robot.commands.StopWristCommand;
 import frc.robot.subsystems.BallSubsystem;
 
 //  Control System
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -52,9 +49,9 @@ public class RobotContainer {
     public final ClawSubsystem m_clawSubsystem = new ClawSubsystem();
     private final PneumaticSubsystem m_pneumaticSubsystem = new PneumaticSubsystem();
 
-  // Create the controllers
-  private static CommandPS5Controller driver;
-  private static CommandPS4Controller operator;
+    // Create the controllers
+    private static CommandPS5Controller driver;
+    private static CommandPS4Controller operator;
 
     // Triggers
     private Trigger crossTankTrigger;
@@ -69,10 +66,9 @@ public class RobotContainer {
       driver = new CommandPS5Controller(OperatorConstants.DRIVERCONTROLLERPORT);
       operator = new CommandPS4Controller(OperatorConstants.OPERATORCONTROLLERPORT);
 
-    // Assign the triggers to the buttons from each controller
-    // driver.circle() is the circle buttom from the driver controller
-    crossTankTrigger = driver.cross();
-    circleArcadeTrigger = driver.circle();
+      //Triggers
+      crossTankTrigger = driver.cross();
+      circleArcadeTrigger = driver.circle();
 
       r1Trigger = operator.R1();
       circleTrigger = operator.circle();
@@ -106,15 +102,15 @@ public class RobotContainer {
       r1Trigger.onTrue(new CloseArmCommand(m_pneumaticSubsystem));
       r1Trigger.onFalse(new OpenArmCommand(m_pneumaticSubsystem));
 
-    triangleTrigger.whileTrue(new DefaultBallCommand(m_ballSubsystem));
+      triangleTrigger.whileTrue(new DefaultBallCommand(m_ballSubsystem));
 
-    circleTrigger.whileTrue(new StopBallCommand(m_ballSubsystem));
-  }
-
-  // This returns the driver controller objects, allowing our commands to use them
-  public static CommandPS5Controller getDriverController() {
-    return driver;
-  }
+      circleTrigger.whileTrue(new StopBallCommand(m_ballSubsystem));
+    }
+  
+    // This returns the driver controller objects, allowing our commands to use them
+    public static CommandPS5Controller getDriverController() {
+      return driver;
+    }
 
     // This returns the operator controller objects, allowing our commands to use them
     public static CommandPS4Controller getOperatorController() {
